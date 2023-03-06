@@ -1,16 +1,37 @@
-# ecommerce_webapp
+# Handicraft_bazaar
 
-A new Flutter project.
+A crossplatform flutter app that provides an exclusive e-commerce platform for artisans to sell their products and allow buyers and sellers to meet at one platform for business.
 
-## Getting Started
+> To promote the Indian handicraft industry globally
 
-This project is a starting point for a Flutter application.
+## Features of this app
 
-A few resources to get you started if this is your first Flutter project:
+- **Seller options**
+    - Adding and deletion of products.
+    - Track orders for his added products and handle shipment through the app.
+    - Analyse the transactions and visualize as graph category wise, which category generates the maximum profit.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **User options**
+    - Search various products and even find them category wise.
+    - Get the deal of the day according to max rating of a product.
+    - Add products to cart, rate them and buy them.
+    - Track the orders and check all the previous orders.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Special Features**
+    - Proper authentication of user and admin
+    - Proper encryption of passwords and storing data securely
+    - Optimized searching algorithms used and caching of images for quick displaying
+    - Smooth and user friendly UI for easy navigation and ease of access
+
+## Tech Stack Used
+
+- **Frontend** Flutter ,Provider
+- **Backend** NodeJs, ExpressJs
+- **Database** MongoDb
+
+## More features that can be implemented
+
+- adding notifications feature to notify deal of the day everyday
+- feature of reviews and feedback to products only by users who have bought that product
+- next recommendation being told to user according to his order history
+- Search product by speaking (using mic)
