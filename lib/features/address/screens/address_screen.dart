@@ -3,7 +3,7 @@ import 'package:ecommerce_webapp/features/address/services/address_services.dart
 import 'package:ecommerce_webapp/provider/user_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:pay/pay.dart';
+// import 'package:pay/pay.dart';
 import 'package:provider/provider.dart';
 import 'package:upi_india/upi_india.dart';
 
@@ -25,20 +25,20 @@ class _AddressScreenState extends State<AddressScreen> {
   final areaController = TextEditingController();
   final pincodeController = TextEditingController();
   final towncityController = TextEditingController();
-  List<PaymentItem> paymentItems = [];
-  late final Future<PaymentConfiguration> _googlePayConfigFuture;
+  // List<PaymentItem> paymentItems = [];
+  // late final Future<PaymentConfiguration> _googlePayConfigFuture;
   String addressToBeUsed = "";
   final addressServices = AddressServices();
   @override
   void initState() {
     super.initState();
-    _googlePayConfigFuture = PaymentConfiguration.fromAsset('gpay.json');
+    // _googlePayConfigFuture = PaymentConfiguration.fromAsset('gpay.json');
 
-    paymentItems.add(PaymentItem(
-      amount: widget.totalAmount.toString(),
-      label: 'Total Amount',
-      status: PaymentItemStatus.final_price,
-    ));
+    // paymentItems.add(PaymentItem(
+    //   amount: widget.totalAmount.toString(),
+    //   label: 'Total Amount',
+    //   status: PaymentItemStatus.final_price,
+    // ));
   }
 
   @override
@@ -54,12 +54,12 @@ class _AddressScreenState extends State<AddressScreen> {
     //so if the payment was suxxessful, we want to store the address in the provider if there was no address earlier
     print('#1');
     if (Provider.of<UserProvider>(context, listen: false)
-        .user
-        .address
-        .isEmpty || Provider.of<UserProvider>(context, listen: false)
-        .user
-        .address!=addressToBeUsed) {
-          print('#2');
+            .user
+            .address
+            .isEmpty ||
+        Provider.of<UserProvider>(context, listen: false).user.address !=
+            addressToBeUsed) {
+      print('#2');
       await addressServices.saveUserAddress(context, addressToBeUsed);
     }
     print('#6');
@@ -170,7 +170,11 @@ class _AddressScreenState extends State<AddressScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    CommonTextField(hintText: 'Pincode', c: pincodeController,keyboardType: TextInputType.number,),
+                    CommonTextField(
+                      hintText: 'Pincode',
+                      c: pincodeController,
+                      keyboardType: TextInputType.number,
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -181,32 +185,33 @@ class _AddressScreenState extends State<AddressScreen> {
                     ),
                   ],
                 ),
-              ),CommonButton(
-                      onTap: () {
-                        payPressed(address);
-                        onPaymentResult();
-                      },
-                      buttonText: 'Using gpay',
-                      color: Colors.white,
-                    )
-                  // FutureBuilder<PaymentConfiguration>(
-                  //     future: _googlePayConfigFuture,
-                  //     builder: (context, snapshot) => snapshot.hasData
-                  //         ? GooglePayButton(
-                  //             onPressed: () {
-                  //               payPressed(address);
-                  //             },
-                  //             height: 50,
-                  //             paymentConfiguration: snapshot.data!,
-                  //             paymentItems: paymentItems,
-                  //             type: GooglePayButtonType.buy,
-                  //             margin: const EdgeInsets.only(top: 15.0),
-                  //             onPaymentResult: onGoogePaymentResult,
-                  //             loadingIndicator: const Center(
-                  //               child: CircularProgressIndicator(),
-                  //             ),
-                  //           )
-                  //         : const SizedBox.shrink()),
+              ),
+              CommonButton(
+                onTap: () {
+                  payPressed(address);
+                  onPaymentResult();
+                },
+                buttonText: 'Using gpay',
+                color: Colors.white,
+              )
+              // FutureBuilder<PaymentConfiguration>(
+              //     future: _googlePayConfigFuture,
+              //     builder: (context, snapshot) => snapshot.hasData
+              //         ? GooglePayButton(
+              //             onPressed: () {
+              //               payPressed(address);
+              //             },
+              //             height: 50,
+              //             paymentConfiguration: snapshot.data!,
+              //             paymentItems: paymentItems,
+              //             type: GooglePayButtonType.buy,
+              //             margin: const EdgeInsets.only(top: 15.0),
+              //             onPaymentResult: onGoogePaymentResult,
+              //             loadingIndicator: const Center(
+              //               child: CircularProgressIndicator(),
+              //             ),
+              //           )
+              //         : const SizedBox.shrink()),
             ],
           ),
         ),

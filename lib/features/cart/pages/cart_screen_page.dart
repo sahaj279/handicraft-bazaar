@@ -31,11 +31,13 @@ class _CartScreenPageState extends State<CartScreenPage> {
 
   navigateToAddressScreen(double totalAmount) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: ((context) => AddressScreen(
-                  totalAmount: totalAmount,
-                ))));
+      context,
+      MaterialPageRoute(
+        builder: ((context) => AddressScreen(
+              totalAmount: totalAmount,
+            )),
+      ),
+    );
   }
 
   @override
@@ -44,7 +46,9 @@ class _CartScreenPageState extends State<CartScreenPage> {
     double totalPrice = 0;
     //both are same
     user.cart.map((e) {
-      totalPrice += e['quantity'] * e['product']['price'] ;/// as int was written here first
+      totalPrice += e['quantity'] * e['product']['price'];
+
+      /// as int was written here first
     }).toList();
 
     return Scaffold(

@@ -1,6 +1,6 @@
 import 'package:ecommerce_webapp/features/admin/model/Sale_Model.dart';
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:charts_flutter_new/flutter.dart' as charts;
 
 class CateforyWiseChart extends StatelessWidget {
   final List<charts.Series<Sale,String>> seriesList; 

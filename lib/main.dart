@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         title: 'Handicraft Bazaar',
         theme: ThemeData(
           // useMaterial3: true,
-          fontFamily: "Oswald",
+          fontFamily: "Poppins",
           visualDensity: VisualDensity.adaptivePlatformDensity,
           primarySwatch: Colors.orange,
         ),

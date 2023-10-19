@@ -2,7 +2,7 @@ import 'package:ecommerce_webapp/features/admin/model/Sale_Model.dart';
 import 'package:ecommerce_webapp/features/admin/services/admin_services.dart';
 import 'package:ecommerce_webapp/features/admin/widgets/category_wise_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:charts_flutter_new/flutter.dart' as charts;
 
 class AnalyticsPage extends StatefulWidget {
   const AnalyticsPage({super.key});

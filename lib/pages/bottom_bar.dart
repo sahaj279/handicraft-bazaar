@@ -94,9 +94,9 @@ class _BottombarPageState extends State<BottombarPage> {
                 ),
                 child: badges.Badge(
                   
-                  elevation: 0,
+                  // elevation: 0,
                   
-                  badgeColor:Colors.white,
+                  // badgeColor:Colors.white,
                  
                   badgeContent:  Text(cartLen.toString()),
                   child: const Icon(
