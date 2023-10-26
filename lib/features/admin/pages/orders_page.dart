@@ -39,28 +39,29 @@ class _OrdersPageAdminState extends State<OrdersPageAdmin> {
             : Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: GridView.builder(
-                    itemCount: orders!.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2),
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => OrderDetailsScreen(
-                                  order: orders![index],
-                                ),
-                              ));
-                        },
-                        child: SizedBox(
-                          height: 120,
-                          child: SingleProduct(
-                              image: orders![index].products[0].images[0]),
+                  itemCount: orders!.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OrderDetailsScreen(
+                                order: orders![index],
+                              ),
+                            ));
+                      },
+                      child: SizedBox(
+                        height: 120,
+                        child: SingleProduct(
+                          image: orders![index].products[0].images[0],
                         ),
-                      );
-                    }),
+                      ),
+                    );
+                  },
+                ),
               );
   }
 }

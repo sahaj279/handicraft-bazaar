@@ -1,42 +1,41 @@
-import 'package:ecommerce_webapp/features/authentication/authServices.dart';
-import 'package:ecommerce_webapp/features/authentication/auth_page.dart';
-import 'package:ecommerce_webapp/features/menu/screens/loading_screen.dart';
-import 'package:ecommerce_webapp/pages/bottom_bar.dart';
-import 'package:ecommerce_webapp/provider/user_provider.dart';
+import 'package:ecommerce_webapp/provider/product_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
-import 'features/admin/pages/admin_page.dart';
+
+import 'package:ecommerce_webapp/features/initial_loading/screens/initial_loading_page.dart';
+import 'package:ecommerce_webapp/provider/user_provider.dart';
 
 void main() {
-  runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (context) => UserProvider()), 
-    // ChangeNotifierProvider(create: ((context) => ProductProvider()))
-    ],
-    child: const MyApp(),
-  ));
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: ((context) => ProductProvider())),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key,});
+  const MyApp({
+    super.key,
+  });
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
-        debugShowCheckedModeBanner: false,
-        title: 'Handicraft Bazaar',
-        theme: ThemeData(
-          // useMaterial3: true,
-          fontFamily: "Poppins",
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          primarySwatch: Colors.orange,
-        ),
-        //loading screen gets pushed here and we move further only after we've got some dta from the api
-        home: const MenuScreenPage(), 
-            // Provider.of<UserProvider>(context).user.token.isEmpty
-            // ? const AuthPage()
-            // : Provider.of<UserProvider>(context).user.type=='user'? const BottombarPage():const AdminPage()
-            );
+      debugShowCheckedModeBanner: false,
+      title: 'Handicraft Bazaar',
+      theme: ThemeData(
+        useMaterial3: true,
+        fontFamily: "Poppins",
+        primarySwatch: Colors.orange,
+      ),
+      home: const InitialLoadingPage(),
+    );
   }
 }

@@ -1,5 +1,5 @@
-
 import 'package:ecommerce_webapp/features/authentication/auth_page.dart';
+import 'package:ecommerce_webapp/features/profile/service/profile_service.dart';
 import 'package:ecommerce_webapp/features/profile/widgets/custom_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,22 +15,45 @@ class ColumnRowWithChips extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-          CustomChip(text: 'Your Orders',onTap: (){},),
-          CustomChip(text: 'Turn Seller',onTap: (){},),
-        ],),
-        const SizedBox(height: 10,),
+            CustomChip(
+              text: 'Your Orders',
+              onTap: () {},
+            ),
+            CustomChip(
+              text: 'Turn Seller',
+              onTap: () async {
+                await ProfileService().turnSeller(context);
+              },
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 10,
+        ),
         Row(
-          
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-          CustomChip(text: 'Log Out',onTap:()async {
-            SharedPreferences preferences=await SharedPreferences.getInstance();
-            await preferences.setString('x-auth-token', '');
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => AuthPage(),), (route) => false);
-          
-          },),
-          CustomChip(text: 'Your Wish List',onTap: (){},),
-        ],),
-    ],);
+            CustomChip(
+              text: 'Log Out',
+              onTap: () async {
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+                await preferences.setString('x-auth-token', '');
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AuthPage(),
+                    ),
+                    (route) => false);
+              },
+            ),
+            CustomChip(
+              text: 'Your Wish List',
+              onTap: () {},
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

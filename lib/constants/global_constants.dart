@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // const domain="https://sahaj-amazon.onrender.com";
-const domain="http://localhost:4999";
+const domain = "http://localhost:4999";
 
 class GlobalVariables {
   // COLORS
@@ -25,12 +25,10 @@ class GlobalVariables {
   static const secondaryColor = Color.fromRGBO(255, 221, 129, 8);
   static const backgroundColor = Colors.white;
   static const Color greyBackgroundCOlor = Color(0xffebecee);
-  static const selectedNavBarColor =Colors.orange;
+  static const selectedNavBarColor = Colors.orange;
   static const unselectedNavBarColor = Colors.black87;
 
   // STATIC IMAGES
-
-
   static const List<Map<String, String>> categoryImages = [
     {
       'title': 'Pottery',

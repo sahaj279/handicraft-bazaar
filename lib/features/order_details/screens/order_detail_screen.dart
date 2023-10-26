@@ -79,158 +79,163 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(7),
                             borderSide: const BorderSide(
-                                color: Colors.black38, width: 1),
+                              color: Colors.black38,
+                              width: 1,
+                            ),
                           ),
                           hintText: 'Search the bazaar',
                           hintStyle: const TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.w500),
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     )),
               ),
               Container(
-                  height: 42,
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: const Icon(
-                    Icons.mic,
-                    color: Colors.black,
-                  )),
+                height: 42,
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: const Icon(
+                  Icons.mic,
+                  color: Colors.black,
+                ),
+              ),
             ],
           ),
         ),
       ),
       body: SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Order Details',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Colors.black12),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Row(children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Text('Order Date:'),
-                    Text('Order ID:'),
-                    Text('Order Total:'),
-                    Text('Address:'),
-                  ],
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Order Details',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
-                const SizedBox(
-                  width: 15,
+              ),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: Colors.black12),
+                  borderRadius: BorderRadius.circular(5),
                 ),
-                Column(
+                child: Row(children: [
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('Order Date:'),
+                      Text('Order ID:'),
+                      Text('Order Total:'),
+                      Text('Address:'),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        DateFormat().format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                              widget.order.orderedAt),
+                        ),
+                      ),
+                      Text(widget.order.id),
+                      Text('\$${widget.order.totalPrice}'),
+                      Text(
+                        widget.order.address,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ],
+                  ),
+                ]),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                'Purchase Details',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: Colors.black12),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(DateFormat().format(
-                        DateTime.fromMillisecondsSinceEpoch(
-                            widget.order.orderedAt))),
-                    Text(widget.order.id),
-                    Text('\$${widget.order.totalPrice}'),
-                    Text(
-                      widget.order.address,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
+                    for (int i = 0; i < widget.order.products.length; i++)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.network(
+                                widget.order.products[i].images[0],
+                                height: 120,
+                                fit: BoxFit.contain,
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    widget.order.products[i].name,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Qty: ${widget.order.quantity[i]}',
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ]),
+                      ),
                   ],
                 ),
-              ]),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text(
-              'Purchase Details',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
               ),
-            ),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Colors.black12),
-                borderRadius: BorderRadius.circular(5),
+              const SizedBox(
+                height: 10,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  for (int i = 0; i < widget.order.products.length; i++)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.network(
-                              widget.order.products[i].images[0],
-                              height: 120,
-                              fit: BoxFit.contain,
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  widget.order.products[i].name,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                Text(
-                                  'Qty: ${widget.order.quantity[i]}',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ]),
-                    ),
-                ],
+              const Text(
+                'Tracking',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text(
-              'Tracking',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            Stepper(
-              physics:const NeverScrollableScrollPhysics() ,
-              
-                currentStep: currentStep,
-                controlsBuilder: ((context, details) {
-                  
-                  // print(user.type);
-                  if (user.type == 'admin') {
-                    return CommonButton(
+              Stepper(
+                  physics: const NeverScrollableScrollPhysics(),
+                  currentStep: currentStep,
+                  controlsBuilder: ((context, details) {
+                    if (user.type == 'admin') {
+                      return CommonButton(
                         onTap: () {
                           if (currentStep < 3) {
                             AdminServices().updateStatus(
@@ -241,62 +246,64 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                     () {
                                       currentStep += 1;
                                       print(currentStep);
-                                      if (currentStep == 4) currentStep--;
+                                      // if (currentStep == 4) currentStep--;
                                     },
                                   );
                                 });
                           }
                         },
-                        buttonText: 'Done');
-                  } else {
-                    return const SizedBox();
-                  }
-                }),
-                steps: [
-                  Step(
-                    title: const Text('Pending'),
-                    content: const Text(
-                      'Your order is yet to be delivered',
+                        buttonText: 'Done',
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
+                  }),
+                  steps: [
+                    Step(
+                      title: const Text('Order Placed'),
+                      content: const Text(
+                        'Your order is yet to be delivered',
+                      ),
+                      isActive: currentStep >= 0,
+                      state: currentStep >= 0
+                          ? StepState.complete
+                          : StepState.indexed,
                     ),
-                    isActive: currentStep > 0,
-                    state: currentStep > 0
-                        ? StepState.complete
-                        : StepState.indexed,
-                  ),
-                  Step(
-                    title: const Text('Completed'),
-                    content: const Text(
-                      'Your order has been delivered, you are yet to sign.',
+                    Step(
+                      title: const Text('Order dispatched'),
+                      content: const Text(
+                        'Your order has been dispatched by seller who sends lots of love with it.',
+                      ),
+                      isActive: currentStep >= 1,
+                      state: currentStep >= 1
+                          ? StepState.complete
+                          : StepState.indexed,
                     ),
-                    isActive: currentStep > 1,
-                    state: currentStep > 1
-                        ? StepState.complete
-                        : StepState.indexed,
-                  ),
-                  Step(
-                    title: const Text('Received'),
-                    content: const Text(
-                      'Your order has been delivered and signed by you.',
+                    Step(
+                      title: const Text('Reached at your city'),
+                      content: const Text(
+                        'Your order has reached your city and will be delivered to you soon.',
+                      ),
+                      isActive: currentStep >= 2,
+                      state: currentStep >= 2
+                          ? StepState.complete
+                          : StepState.indexed,
                     ),
-                    isActive: currentStep > 2,
-                    state: currentStep > 2
-                        ? StepState.complete
-                        : StepState.indexed,
-                  ),
-                  Step(
-                    title: const Text('Delivered'),
-                    content: const Text(
-                      'Delivered successfully!',
+                    Step(
+                      title: const Text('Received'),
+                      content: const Text(
+                        'Your order has reached you successfully!',
+                      ),
+                      isActive: currentStep >= 3,
+                      state: currentStep >= 3
+                          ? StepState.complete
+                          : StepState.indexed,
                     ),
-                    isActive: currentStep >= 3,
-                    state: currentStep >= 3
-                        ? StepState.complete
-                        : StepState.indexed,
-                  ),
-                ])
-          ],
+                  ])
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }

@@ -7,6 +7,7 @@ import 'package:ecommerce_webapp/constants/global_constants.dart';
 import 'package:ecommerce_webapp/features/admin/model/Sale_Model.dart';
 import 'package:ecommerce_webapp/models/order_model.dart';
 import 'package:ecommerce_webapp/models/product_model.dart';
+import 'package:ecommerce_webapp/provider/product_provider.dart';
 import 'package:ecommerce_webapp/provider/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -55,6 +56,9 @@ class AdminServices {
 
       if (res.statusCode == 200) {
         showSnackbar(context: context, content: 'Prodct added successfully!');
+        Provider.of<ProductProvider>(context, listen: false).addProduct(
+          Product.fromMap(jsonDecode(res.body)),
+        );
         Navigator.pop(context);
       } else {
         showSnackbar(context: context, content: res.body);
@@ -94,7 +98,7 @@ class AdminServices {
     }
   }
 
-  // GETTING ALL PRODUCTS OF A PARTICULAR ADMIN
+  // GETTING ALL PRODUCTS OF A PARTICULAR SELLER
   Future<List<Product>> getAllProducts({required BuildContext context}) async {
     String token = Provider.of<UserProvider>(context, listen: false).user.token;
     List<Product> products = [];
@@ -112,7 +116,8 @@ class AdminServices {
             ),
           );
         }
-        // Provider.of<ProductProvider>(context,listen:false).setProducts(products);
+        Provider.of<ProductProvider>(context, listen: false)
+            .setProducts(products);
       } else {
         debugPrint(res.body);
       }
@@ -140,7 +145,6 @@ class AdminServices {
             ),
           );
         }
-        // Provider.of<ProductProvider>(context,listen:false).setProducts(products);
       } else {
         debugPrint(res.body);
       }
@@ -192,17 +196,15 @@ class AdminServices {
       );
       if (res.statusCode == 200) {
         var response = jsonDecode(res.body);
-        
-        totalPrice=response['totalEarnings'] as int;
+
+        totalPrice = response['totalEarnings'] as int;
         sales = [
           Sale(label: 'Pottery', earning: response['Pottery'] as int),
           Sale(label: 'Embroidery', earning: response['Embroidery'] as int),
           Sale(label: 'Jewelry', earning: response['Jewelry'] as int),
           Sale(label: 'Paintings', earning: response['Paintings'] as int),
           Sale(label: 'Sculptures', earning: response['Sculptures'] as int),
-          ];
-
-        // Provider.of<ProductProvider>(context,listen:false).setProducts(products);
+        ];
       } else {
         debugPrint(res.body);
       }

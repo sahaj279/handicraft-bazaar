@@ -29,32 +29,40 @@ class _ProfileScreenPageState extends State<ProfileScreenPage> {
             children: [
               Container(
                 alignment: Alignment.topLeft,
-                child:const Text('Handicraft Bazaar'),
+                child: const Text('Handicraft Bazaar'),
               ),
               Container(
-                padding:const EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  children:const [
-                    Padding(
-                      padding: EdgeInsets.only(right:15.0),
-                      child: Icon(Icons.notifications_outlined,color: Colors.black,),
-                    ), 
-                    Icon(Icons.search,color: Colors.black,)
-                  ],
-                )
-
-              ),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: const Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 15.0),
+                        child: Icon(
+                          Icons.notifications_outlined,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Icon(
+                        Icons.search,
+                        color: Colors.black,
+                      )
+                    ],
+                  )),
             ],
           ),
         ),
       ),
-      body: Column(children:const [
-        BelowAppBar(),
-        ColumnRowWithChips(),
-        SizedBox(height: 20,),
-        OrdersView(),
-
-      ]),
+      body: const Column(
+        children: [
+          BelowAppBar(),
+          SizedBox(height: 10),
+          ColumnRowWithChips(),
+          SizedBox(
+            height: 20,
+          ),
+          OrdersView(),
+        ],
+      ),
     );
   }
 }

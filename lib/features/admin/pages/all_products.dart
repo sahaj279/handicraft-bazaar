@@ -31,12 +31,12 @@ class _AllProductsState extends State<AllProducts> {
 
   void fetchAllProducts() async {
     products = await adminServices.getAllProducts(context: context);
-    setState(() {});
+    // setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    // products= Provider.of<ProductProvider>(context).products;
+    products = Provider.of<ProductProvider>(context).products;
     return Scaffold(
       body: products == null
           ? const CircularLoader()

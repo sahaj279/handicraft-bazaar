@@ -27,7 +27,8 @@ class AddressServices {
         print('#4');
         // print( jsonDecode(res.body));
 
-        User u = userProvider.user.copyWith(address: jsonDecode(res.body)['address']);
+        User u = userProvider.user
+            .copyWith(address: jsonDecode(res.body)['address']);
         userProvider.setUser(u);
         print('#5');
       }
@@ -55,18 +56,21 @@ class AddressServices {
         }),
         headers: {
           "Content-Type": "application/json",
-          'x-auth-token': userProvider.user.token},
+          'x-auth-token': userProvider.user.token,
+        },
       );
       print('#8');
       // print(res.body);
-      if(res.statusCode==400){
-        showSnackbar(context: context, content: jsonDecode(res.body)['message']);
-
+      if (res.statusCode == 400) {
+        showSnackbar(
+            context: context, content: jsonDecode(res.body)['message']);
       }
       if (res.statusCode == 200) {
         print('#9');
         Navigator.of(context).pop();
-        showSnackbar(context: context, content: 'Your Order has been placed successfully!');
+        showSnackbar(
+            context: context,
+            content: 'Your Order has been placed successfully!');
         User u = userProvider.user.copyWith(cart: []);
         userProvider.setUser(u);
       }

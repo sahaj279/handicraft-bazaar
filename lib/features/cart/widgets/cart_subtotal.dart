@@ -9,19 +9,14 @@ class CartSubtotal extends StatelessWidget {
   Widget build(BuildContext context) {
     double totalPrice = 0;
     final user = Provider.of<UserProvider>(context).user;
-    //both are same
     user.cart.map((e) {
-      totalPrice += e['quantity'] * e['product']['price'] as int;
+      totalPrice += e['quantity'] * e['product']['price'];
     }).toList();
-    // for(int i=0;i<user.cart.length;i++){
-    //    totalPrice += user.cart[i]['quantity'] * user.cart[i]['product']['price'];
-
-    // }
 
     return RichText(
       text: TextSpan(
         text: 'Subtotal ',
-        style: const TextStyle(fontSize: 20,color: Colors.black),
+        style: const TextStyle(fontSize: 20, color: Colors.black),
         children: [
           TextSpan(
             text: '\$$totalPrice',

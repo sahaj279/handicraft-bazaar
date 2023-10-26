@@ -1,14 +1,17 @@
+import 'package:flutter/widgets.dart';
 
-// import 'package:flutter/widgets.dart';
+import '../models/product_model.dart';
 
-// import '../models/product_model.dart';
+class ProductProvider with ChangeNotifier {
+  List<Product> products = [];
 
-// class ProductProvider with ChangeNotifier{
-//   List <Product> products=[];
-  
+  void addProduct(Product product) {
+    products.add(product);
+    notifyListeners();
+  }
 
-//   void setProducts(List<Product> p){
-//     products=p;
-//     notifyListeners();
-//   }
-// }
+  void setProducts(List<Product> products) {
+    this.products = products;
+    notifyListeners();
+  }
+}

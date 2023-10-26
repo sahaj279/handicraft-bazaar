@@ -25,7 +25,7 @@ class _AddAProductState extends State<AddAProduct> {
   final _descController = TextEditingController();
   final _priceController = TextEditingController();
   final _quantityController = TextEditingController();
-  bool load=false;
+  bool load = false;
   String category = 'Pottery';
   List<Uint8List> images = [];
 
@@ -38,7 +38,6 @@ class _AddAProductState extends State<AddAProduct> {
   ];
 
   void selectImages() async {
-    print("#1");
     var res = await pickImages();
     setState(() {
       images = res;
@@ -56,7 +55,6 @@ class _AddAProductState extends State<AddAProduct> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
@@ -178,29 +176,30 @@ class _AddAProductState extends State<AddAProduct> {
                   height: 10,
                 ),
                 CommonButton(
-                    onTap: ()async {
-                      if (_productFormKey.currentState!.validate() && images.isNotEmpty) {
-                        setState(() {
-                          load=true;
-                        });
-                       await _adminServices.sellProduct(
-                            context: context,
-                            name: _productNameController.text,
-                            desc: _descController.text,
-                            price: double.tryParse(_priceController.text)!,
-                            quantity: int.tryParse(_quantityController.text)!,
-                            images: images,
-                            category: category);
-                            setState(() {
-                          load=false;
-                        });
-                      }else{
-                        showSnackbar(context: context, content: 'Select images');
-                      }
-                    },
-                    buttonText: 'Sell',
-                    child:load?const CircularLoader():null,
-                    )
+                  onTap: () async {
+                    if (_productFormKey.currentState!.validate() &&
+                        images.isNotEmpty) {
+                      setState(() {
+                        load = true;
+                      });
+                      await _adminServices.sellProduct(
+                          context: context,
+                          name: _productNameController.text.trim(),
+                          desc: _descController.text,
+                          price: double.tryParse(_priceController.text)!,
+                          quantity: int.tryParse(_quantityController.text)!,
+                          images: images,
+                          category: category);
+                      setState(() {
+                        load = false;
+                      });
+                    } else {
+                      showSnackbar(context: context, content: 'Select images');
+                    }
+                  },
+                  buttonText: 'Sell',
+                  child: load ? const CircularLoader() : null,
+                )
               ],
             ),
           ),

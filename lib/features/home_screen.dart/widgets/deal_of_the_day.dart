@@ -1,3 +1,4 @@
+import 'package:ecommerce_webapp/common/widgets/common_button.dart';
 import 'package:ecommerce_webapp/features/home_screen.dart/services/home_services.dart';
 import 'package:ecommerce_webapp/features/product_details/screens/product_details_screen.dart';
 import 'package:ecommerce_webapp/models/product_model.dart';
@@ -96,16 +97,17 @@ class _DealOfTheDayState extends State<DealOfTheDay> {
                                     )
                                     .toList()),
                           ),
-                          Container(
-                            // alignment: Alignment.topLeft,
-                            padding: const EdgeInsets.only(
-                                left: 15, top: 15, bottom: 15),
-                            child: const Text(
-                              'See all deals',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Color.fromARGB(255, 255, 165, 29),
-                              ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: CommonButton(
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return ProductDetailsScreen(
+                                      product: product!);
+                                }));
+                              },
+                              buttonText: 'Buy Now',
                             ),
                           ),
                         ],

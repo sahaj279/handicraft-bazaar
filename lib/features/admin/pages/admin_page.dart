@@ -1,11 +1,11 @@
-import 'package:ecommerce_webapp/features/admin/pages/all_products.dart';
-import 'package:ecommerce_webapp/features/admin/pages/analytics_page.dart';
-import 'package:ecommerce_webapp/features/admin/pages/orders_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../constants/global_constants.dart';
-import '../../authentication/auth_page.dart';
+import 'package:ecommerce_webapp/constants/global_constants.dart';
+import 'package:ecommerce_webapp/features/admin/pages/all_products.dart';
+import 'package:ecommerce_webapp/features/admin/pages/analytics_page.dart';
+import 'package:ecommerce_webapp/features/admin/pages/orders_page.dart';
+import 'package:ecommerce_webapp/features/authentication/auth_page.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
@@ -32,7 +32,7 @@ class _AdminPageState extends State<AdminPage> {
         return AlertDialog(
           title: const Text('Logout'),
           content: const Text('Are you sure you want to logout?'),
-          actions: <Widget>[
+          actions: [
             TextButton(
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
@@ -47,14 +47,16 @@ class _AdminPageState extends State<AdminPage> {
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
               child: const Text('Yes'),
-              onPressed: ()async {
-                 SharedPreferences preferences = await SharedPreferences.getInstance();
-                 await preferences.setString('x-auth-token', '');
-                 Navigator.pushAndRemoveUntil(context,MaterialPageRoute(
-                                builder: (context) => const AuthPage(),
-                              ),
-                              (route) => false);
-                // Navigator.of(context).pop();
+              onPressed: () async {
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+                await preferences.setString('x-auth-token', '');
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AuthPage(),
+                    ),
+                    (route) => false);
               },
             ),
           ],
@@ -62,6 +64,7 @@ class _AdminPageState extends State<AdminPage> {
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +74,6 @@ class _AdminPageState extends State<AdminPage> {
           actions: [
             InkWell(
               onTap: () => _dialogBuilder(context),
-             
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
                 child: Icon(
@@ -80,32 +82,19 @@ class _AdminPageState extends State<AdminPage> {
               ),
             ),
           ],
+          leadingWidth: 0,
           backgroundColor: Colors.orange,
           elevation: 0,
           flexibleSpace: Container(
             decoration:
                 const BoxDecoration(gradient: GlobalVariables.appBarGradient),
           ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                alignment: Alignment.topLeft,
-                child: const Text(
-                  'Handicraft Bazaar',
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: const Text('Admin',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600))),
-            ],
+          title: const Text(
+            'Seller Dashboard',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
       ),
@@ -131,10 +120,11 @@ class _AdminPageState extends State<AdminPage> {
                 decoration: BoxDecoration(
                   border: Border(
                     top: BorderSide(
-                        width: _bottomBarIconWidth,
-                        color: _page == 0
-                            ? GlobalVariables.selectedNavBarColor
-                            : GlobalVariables.backgroundColor),
+                      width: _bottomBarIconWidth,
+                      color: _page == 0
+                          ? GlobalVariables.selectedNavBarColor
+                          : GlobalVariables.backgroundColor,
+                    ),
                   ),
                 ),
                 child: const Icon(
@@ -148,10 +138,11 @@ class _AdminPageState extends State<AdminPage> {
                 decoration: BoxDecoration(
                   border: Border(
                     top: BorderSide(
-                        width: _bottomBarIconWidth,
-                        color: _page == 1
-                            ? GlobalVariables.selectedNavBarColor
-                            : GlobalVariables.backgroundColor),
+                      width: _bottomBarIconWidth,
+                      color: _page == 1
+                          ? GlobalVariables.selectedNavBarColor
+                          : GlobalVariables.backgroundColor,
+                    ),
                   ),
                 ),
                 child: const Icon(
@@ -161,22 +152,24 @@ class _AdminPageState extends State<AdminPage> {
               label: ''),
 
           BottomNavigationBarItem(
-              icon: Container(
-                width: _bottomBarWidth,
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                        width: _bottomBarIconWidth,
-                        color: _page == 2
-                            ? GlobalVariables.selectedNavBarColor
-                            : GlobalVariables.backgroundColor),
+            icon: Container(
+              width: _bottomBarWidth,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    width: _bottomBarIconWidth,
+                    color: _page == 2
+                        ? GlobalVariables.selectedNavBarColor
+                        : GlobalVariables.backgroundColor,
                   ),
                 ),
-                child: const Icon(
-                  Icons.all_inbox_outlined,
-                ),
               ),
-              label: ''),
+              child: const Icon(
+                Icons.all_inbox_outlined,
+              ),
+            ),
+            label: '',
+          ),
         ],
       ),
     );

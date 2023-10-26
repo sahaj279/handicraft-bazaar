@@ -6,13 +6,26 @@ class CommonTextField extends StatelessWidget {
   final int maxLines;
   final bool obscureText;
   final TextInputType? keyboardType;
-  const CommonTextField({super.key, required this.hintText, required this.c,this.maxLines=1, this.keyboardType,this.obscureText=false});
+
+  const CommonTextField({
+    super.key,
+    required this.hintText,
+    required this.c,
+    this.maxLines = 1,
+    this.keyboardType,
+    this.obscureText = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: obscureText,
-      validator: (value){if(value=="" || value!.isEmpty){return "Enter $hintText";}},
+      validator: (value) {
+        if (value == "" || value!.isEmpty) {
+          return "Enter $hintText";
+        }
+        return null;
+      },
       controller: c,
       keyboardType: keyboardType,
       maxLines: maxLines,

@@ -33,24 +33,55 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
         ? const Center(
             child: CircularProgressIndicator(),
           )
-        : Column(
-            children: [
-              Text(
-                '\$$totalEarning',
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              SizedBox(
-                height: 250,
-                child: CateforyWiseChart(seriesList: [
-                  charts.Series(
+        : Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Text(
+                  'Analytics',
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  'The plot shows which category of your products is the highest seller.',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black87,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Total earning: \$$totalEarning',
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  height: 250,
+                  child: CateforyWiseChart(seriesList: [
+                    charts.Series(
                       id: 'Sales',
                       data: sales!,
                       domainFn: (Sale sale, _) => sale.label,
-                      measureFn: (Sale sale, _) => sale.earning)
-                ]),
-              )
-            ],
+                      measureFn: (Sale sale, _) => sale.earning,
+                    )
+                  ]),
+                )
+              ],
+            ),
           );
   }
 }

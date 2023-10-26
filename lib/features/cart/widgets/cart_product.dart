@@ -15,7 +15,7 @@ class CartProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     final productMap = Provider.of<UserProvider>(context).user.cart[index];
     final product = Product.fromMap(productMap['product']);
-    final quantity = productMap['quantity'];
+    final int quantity = productMap['quantity'];
     return Container(
       padding: const EdgeInsets.only(bottom: 10),
       child: Column(
@@ -68,8 +68,9 @@ class CartProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
-                  onTap: ()async{
-                   await CartServices().decrementQuantity(context: context, productid: product.id!);
+                  onTap: () async {
+                    await CartServices().decrementQuantity(
+                        context: context, productid: product.id!);
                   },
                   child: Container(
                     width: 35,
@@ -90,14 +91,15 @@ class CartProduct extends StatelessWidget {
                   width: 35,
                   alignment: Alignment.center,
                   child: InkWell(
-                      onTap: () async {
-                        await ProductDetailsServices()
-                            .addToCart(context: context, product: product);
-                      },
-                      child: const Icon(
-                        Icons.add,
-                        size: 16,
-                      )),
+                    onTap: () async {
+                      await ProductDetailsServices()
+                          .addToCart(context: context, product: product);
+                    },
+                    child: const Icon(
+                      Icons.add,
+                      size: 16,
+                    ),
+                  ),
                 ),
               ],
             ),

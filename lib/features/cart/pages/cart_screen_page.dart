@@ -122,7 +122,7 @@ class _CartScreenPageState extends State<CartScreenPage> {
               ? const Expanded(
                   child: Center(
                     child: Text(
-                      'Your cart is empty :(\nAdd some products to cart first!',
+                      'Continue shopping and add some products to cart!',
                       style: TextStyle(fontSize: 20),
                       textAlign: TextAlign.center,
                     ),

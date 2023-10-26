@@ -1,12 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:ecommerce_webapp/common/util/snackbar.dart';
+import 'package:flutter/material.dart';
+
 import 'package:ecommerce_webapp/common/widgets/CommonTextField.dart';
 import 'package:ecommerce_webapp/common/widgets/common_button.dart';
-import 'package:ecommerce_webapp/features/admin/pages/admin_page.dart';
 import 'package:ecommerce_webapp/features/authentication/authServices.dart';
-import 'package:ecommerce_webapp/pages/bottom_bar.dart';
-import 'package:flutter/material.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -15,7 +13,10 @@ class AuthPage extends StatefulWidget {
   State<AuthPage> createState() => _AuthPageState();
 }
 
-enum Auth { signup, login }
+enum Auth {
+  signUp,
+  login,
+}
 
 class _AuthPageState extends State<AuthPage> {
   final _sighupKey = GlobalKey<FormState>();
@@ -26,29 +27,17 @@ class _AuthPageState extends State<AuthPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   void signup() async {
-    String s = await AuthServices().signup(
-        _nameController.text, _passwordController.text, _emailController.text);
-    showSnackbar(context: context, content: s);
+    await AuthServices().signup(
+      _nameController.text,
+      _passwordController.text,
+      _emailController.text,
+      context,
+    );
   }
 
   void login() async {
-    String s = await AuthServices()
+    await AuthServices()
         .login(_passwordController.text, _emailController.text, context);
-        if(s=="2"){
-          Navigator.pushReplacement(context, MaterialPageRoute(
-      builder: (context) {
-        return const BottombarPage();
-      },
-    ));
-        }else if(s=="1"){
-          Navigator.pushReplacement(context, MaterialPageRoute(
-      builder: (context) {
-        return const AdminPage();
-      },
-    ));
-        }
-    
-    else{showSnackbar(context: context, content: s);}
   }
 
   @override
@@ -83,9 +72,12 @@ class _AuthPageState extends State<AuthPage> {
                         auth = Auth.login;
                       });
                     },
-                    leading: Icon(auth == Auth.login
-                        ? Icons.radio_button_checked
-                        : Icons.radio_button_off),
+                    leading: Icon(
+                      auth == Auth.login
+                          ? Icons.radio_button_checked
+                          : Icons.radio_button_off,
+                      color: auth == Auth.login ? Colors.orange : null,
+                    ),
                     title: const Text('Login'),
                   ),
                   auth == Auth.login
@@ -96,22 +88,29 @@ class _AuthPageState extends State<AuthPage> {
                             child: Column(
                               children: [
                                 CommonTextField(
-                                    hintText: 'Email', c: _emailController,keyboardType: TextInputType.emailAddress,),
+                                  hintText: 'Email',
+                                  c: _emailController,
+                                  keyboardType: TextInputType.emailAddress,
+                                ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 CommonTextField(
-                                    hintText: 'Password', c: _passwordController,obscureText: true,),
+                                  hintText: 'Password',
+                                  c: _passwordController,
+                                  obscureText: true,
+                                ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 CommonButton(
-                                    onTap: () {
-                                      if (_loginKey.currentState!.validate()) {
-                                        login();
-                                      }
-                                    },
-                                    buttonText: 'LogIn')
+                                  onTap: () {
+                                    if (_loginKey.currentState!.validate()) {
+                                      login();
+                                    }
+                                  },
+                                  buttonText: 'LogIn',
+                                )
                               ],
                             ),
                           ),
@@ -123,21 +122,26 @@ class _AuthPageState extends State<AuthPage> {
             //signup
             Container(
               margin: const EdgeInsets.all(5),
-              color: auth == Auth.signup ? Colors.white : null,
+              color: auth == Auth.signUp ? Colors.white : null,
               child: Column(
                 children: [
                   ListTile(
                     onTap: () {
                       setState(() {
-                        auth = Auth.signup;
+                        auth = Auth.signUp;
                       });
                     },
-                    leading: Icon(auth == Auth.signup
-                        ? Icons.radio_button_checked
-                        : Icons.radio_button_off),
-                    title: const Text('SignUp'),
+                    leading: Icon(
+                      auth == Auth.signUp
+                          ? Icons.radio_button_checked
+                          : Icons.radio_button_off,
+                      color: auth == Auth.signUp ? Colors.orange : null,
+                    ),
+                    title: const Text(
+                      'SignUp',
+                    ),
                   ),
-                  auth == Auth.signup
+                  auth == Auth.signUp
                       ? Padding(
                           padding: const EdgeInsets.all(8),
                           child: Form(
@@ -145,27 +149,36 @@ class _AuthPageState extends State<AuthPage> {
                             child: Column(
                               children: [
                                 CommonTextField(
-                                    hintText: 'Name', c: _nameController),
+                                  hintText: 'Name',
+                                  c: _nameController,
+                                ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 CommonTextField(
-                                    hintText: 'Email', c: _emailController,keyboardType: TextInputType.emailAddress,),
+                                  hintText: 'Email',
+                                  c: _emailController,
+                                  keyboardType: TextInputType.emailAddress,
+                                ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 CommonTextField(
-                                    hintText: 'Password', c: _passwordController,obscureText: true,),
+                                  hintText: 'Password',
+                                  c: _passwordController,
+                                  obscureText: true,
+                                ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 CommonButton(
-                                    onTap: () {
-                                      if (_sighupKey.currentState!.validate()) {
-                                        signup();
-                                      }
-                                    },
-                                    buttonText: 'SignUp')
+                                  onTap: () {
+                                    if (_sighupKey.currentState!.validate()) {
+                                      signup();
+                                    }
+                                  },
+                                  buttonText: 'SignUp',
+                                )
                               ],
                             ),
                           ),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CustomChip extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
-  const CustomChip({super.key, required this.text,required this.onTap});
+  const CustomChip({super.key, required this.text, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +17,22 @@ class CustomChip extends StatelessWidget {
           borderRadius: BorderRadius.circular(33),
         ),
         child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: GlobalVariables.greyBackgroundCOlor,
-            
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(33) )),
-            onPressed: onTap,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text(
-                text,
-                style: const TextStyle(fontSize: 18, ),
+          style: ElevatedButton.styleFrom(
+              backgroundColor: GlobalVariables.greyBackgroundCOlor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(33))),
+          onPressed: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Text(
+              text,
+              style: const TextStyle(
+                color: Colors.black87,
+                fontSize: 18,
               ),
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }
