@@ -31,18 +31,22 @@ class CommonAppBar extends StatelessWidget {
               ),
             ),
             Container(
-              padding:const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                children:const [
-                  Padding(
-                    padding: EdgeInsets.only(right:15.0),
-                    child: Icon(Icons.notifications_outlined,color: Colors.black,),
-                  ), 
-                  Icon(Icons.search,color: Colors.black,)
-                ],
-              )
-
-            ),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: const Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(right: 15.0),
+                      child: Icon(
+                        Icons.notifications_outlined,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Icon(
+                      Icons.search,
+                      color: Colors.black,
+                    )
+                  ],
+                )),
           ],
         ),
       ),

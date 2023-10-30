@@ -62,7 +62,7 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
                   height: 20,
                 ),
                 Text(
-                  'Total earning: \$$totalEarning',
+                  'Total earning: \u{20B9}$totalEarning',
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 18),
                 ),

@@ -96,7 +96,16 @@ class _LandingPageState extends State<LandingPage> {
                 ),
               ),
               child: badges.Badge(
-                badgeContent: Text(cartLen.toString()),
+                badgeStyle: const badges.BadgeStyle(
+                  badgeColor: Colors.blue,
+                ),
+                badgeContent: Text(
+                  cartLen.toString(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                ),
                 child: const Icon(
                   Icons.shopping_cart_outlined,
                 ),

@@ -41,7 +41,7 @@ class CartProduct extends StatelessWidget {
                       style: const TextStyle(fontSize: 22),
                     ),
                     Text(
-                      '\$${product.price.toString()}',
+                      '\u{20B9}${product.price.toString()}',
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.bold),
                     ),

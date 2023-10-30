@@ -56,7 +56,7 @@ class _OrdersPageAdminState extends State<OrdersPageAdmin> {
                       child: SizedBox(
                         height: 120,
                         child: SingleProduct(
-                          image: orders![index].products[0].images[0],
+                          image: orders![index].product.images[0],
                         ),
                       ),
                     );

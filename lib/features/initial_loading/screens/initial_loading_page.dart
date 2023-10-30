@@ -27,8 +27,8 @@ class _InitialLoadingPageState extends State<InitialLoadingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: CircularLoader(),
+    return const Scaffold(
+      body: Center(child: CircularLoader()),
     );
   }
 }

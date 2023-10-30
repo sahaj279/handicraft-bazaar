@@ -91,7 +91,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
       body: const SingleChildScrollView(
         child: Column(
           children: [
-            // AddressBox(),
+            AddressBox(),
             SizedBox(
               height: 10,
             ),

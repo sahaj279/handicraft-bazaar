@@ -8,8 +8,13 @@ import '../../../constants/global_constants.dart';
 import '../../../models/product_model.dart';
 
 class SearchScreenHomePage extends StatefulWidget {
+  final bool? emptySearchQuery;
   final String searchQuery;
-  const SearchScreenHomePage({super.key, required this.searchQuery});
+  const SearchScreenHomePage({
+    super.key,
+    required this.searchQuery,
+    this.emptySearchQuery,
+  });
 
   @override
   State<SearchScreenHomePage> createState() => _SearchScreenHomePageState();
@@ -61,6 +66,10 @@ class _SearchScreenHomePageState extends State<SearchScreenHomePage> {
                       borderRadius: BorderRadius.circular(7),
                       elevation: 1,
                       child: TextFormField(
+                        autofocus: widget.emptySearchQuery != null &&
+                                widget.emptySearchQuery == true
+                            ? true
+                            : false,
                         onFieldSubmitted: onSearchTapped,
                         decoration: InputDecoration(
                           prefixIcon: InkWell(
@@ -112,18 +121,24 @@ class _SearchScreenHomePageState extends State<SearchScreenHomePage> {
                 const AddressBox(),
                 const SizedBox(height: 10),
                 products!.isEmpty
-                    ? const Center(
-                        child: Text('No Product found'),
+                    ? Center(
+                        child: Text(widget.emptySearchQuery != null &&
+                                widget.emptySearchQuery == true
+                            ? 'Enter a keyword to search.'
+                            : 'No Product found for entered search keyword.'),
                       )
                     : Expanded(
                         child: ListView.builder(
                           itemCount: products!.length,
                           itemBuilder: (context, index) {
                             return InkWell(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                  return ProductDetailsScreen(product: products![index]);
-                                },));
+                              onTap: () {
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return ProductDetailsScreen(
+                                        product: products![index]);
+                                  },
+                                ));
                               },
                               child: SearchedProductWidget(
                                   product: products![index]),

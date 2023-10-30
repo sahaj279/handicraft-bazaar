@@ -2,6 +2,7 @@ import 'package:ecommerce_webapp/constants/global_constants.dart';
 import 'package:ecommerce_webapp/features/profile/widgets/below_app_bar.dart';
 import 'package:ecommerce_webapp/features/profile/widgets/column_row.dart';
 import 'package:ecommerce_webapp/features/profile/widgets/orders.dart';
+import 'package:ecommerce_webapp/features/search/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreenPage extends StatefulWidget {
@@ -32,22 +33,35 @@ class _ProfileScreenPageState extends State<ProfileScreenPage> {
                 child: const Text('Handicraft Bazaar'),
               ),
               Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: const Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(right: 15.0),
-                        child: Icon(
-                          Icons.notifications_outlined,
-                          color: Colors.black,
-                        ),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(right: 15.0),
+                      child: Icon(
+                        Icons.notifications_outlined,
+                        color: Colors.black,
                       ),
-                      Icon(
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return const SearchScreenHomePage(
+                              searchQuery: "",
+                              emptySearchQuery: true,
+                            );
+                          },
+                        ));
+                      },
+                      child: const Icon(
                         Icons.search,
                         color: Colors.black,
-                      )
-                    ],
-                  )),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),

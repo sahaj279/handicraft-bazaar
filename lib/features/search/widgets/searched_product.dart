@@ -44,7 +44,7 @@ class SearchedProductWidget extends StatelessWidget {
                 ),
                  Stars(rating: avgRating),
                 Text(
-                  '\$${product.price.toString()}',
+                  '\u{20B9}${product.price.toString()}',
                   style: const TextStyle(
                       fontSize: 22, fontWeight: FontWeight.bold),
                 ),

@@ -70,7 +70,7 @@ class _OrdersViewState extends State<OrdersView> {
                       itemCount: orders!.length,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: const EdgeInsets.only(right:8.0),
+                          padding: const EdgeInsets.only(right: 8.0),
                           child: InkWell(
                             onTap: () {
                               Navigator.push(
@@ -82,7 +82,7 @@ class _OrdersViewState extends State<OrdersView> {
                               );
                             },
                             child: SingleProduct(
-                                image: orders![index].products[0].images[0]),
+                                image: orders![index].product.images[0]),
                           ),
                         );
                       },

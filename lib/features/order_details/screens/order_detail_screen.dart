@@ -149,8 +149,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                               widget.order.orderedAt),
                         ),
                       ),
-                      Text(widget.order.id),
-                      Text('\$${widget.order.totalPrice}'),
+                      Text(widget.order.orderId),
+                      Text('\u{20B9}${widget.order.totalPrice}'),
                       Text(
                         widget.order.address,
                         overflow: TextOverflow.ellipsis,
@@ -182,40 +182,40 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    for (int i = 0; i < widget.order.products.length; i++)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.network(
-                                widget.order.products[i].images[0],
-                                height: 120,
-                                fit: BoxFit.contain,
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    widget.order.products[i].name,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
+                    // for (int i = 0; i < widget.order.product.length; i++)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.network(
+                              widget.order.product.images[0],
+                              height: 120,
+                              fit: BoxFit.contain,
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  widget.order.product.name,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
                                   ),
-                                  Text(
-                                    'Qty: ${widget.order.quantity[i]}',
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
-                              ),
-                            ]),
-                      ),
+                                ),
+                                Text(
+                                  'Qty: ${widget.order.quantity}',
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ]),
+                    ),
                   ],
                 ),
               ),
@@ -240,7 +240,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                           if (currentStep < 3) {
                             AdminServices().updateStatus(
                                 context: context,
-                                order_id: widget.order.id,
+                                order_id: widget.order.orderId,
                                 onSucess: () {
                                   setState(
                                     () {

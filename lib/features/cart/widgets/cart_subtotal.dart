@@ -19,7 +19,7 @@ class CartSubtotal extends StatelessWidget {
         style: const TextStyle(fontSize: 20, color: Colors.black),
         children: [
           TextSpan(
-            text: '\$$totalPrice',
+            text: '\u{20B9}$totalPrice',
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ],

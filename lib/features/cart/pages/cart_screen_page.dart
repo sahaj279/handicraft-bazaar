@@ -3,10 +3,8 @@ import 'package:ecommerce_webapp/common/widgets/common_button.dart';
 import 'package:ecommerce_webapp/features/cart/widgets/cart_product.dart';
 import 'package:ecommerce_webapp/features/cart/widgets/cart_subtotal.dart';
 import 'package:ecommerce_webapp/features/home_screen.dart/widgets/address_box.dart';
-import 'package:ecommerce_webapp/models/product_model.dart';
 import 'package:ecommerce_webapp/provider/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/global_constants.dart';

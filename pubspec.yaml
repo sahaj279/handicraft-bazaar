@@ -45,17 +45,16 @@ dependencies:
   file_picker: ^6.0.0
   cloudinary_public: ^0.21.0
   flutter_rating_bar: ^4.0.1
-  # pay: ^1.1.2
   intl: ^0.17.0
   charts_flutter_new: ^0.12.0
   flutter_native_splash: ^2.3.3
-  upi_india: ^3.0.1
+  flutter_stripe: ^9.5.0+1
 
 flutter_native_splash:
   color: '#e76a00'
   image: 'assets/images/splash.png'
-  branding: 'assets/images/branding.png'
-  branding_mode: bottom
+  # branding: 'assets/images/branding.png'
+  # branding_mode: bottom
   android: true
   web: true
   ios: true
@@ -99,7 +98,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-    - assets/gpay.json
+    # - assets/gpay.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

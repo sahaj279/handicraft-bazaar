@@ -64,7 +64,7 @@ class _DealOfTheDayState extends State<DealOfTheDay> {
                           Container(
                             // alignment: Alignment.topLeft,
                             padding: const EdgeInsets.only(left: 15),
-                            child: Text('\$ ${product!.price.toString()}',
+                            child: Text('\u{20B9} ${product!.price.toString()}',
                                 style: const TextStyle(fontSize: 18)),
                           ),
                           Container(

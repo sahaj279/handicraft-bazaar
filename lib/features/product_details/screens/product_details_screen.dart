@@ -200,7 +200,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ),
                     children: [
                       TextSpan(
-                        text: '\$${widget.product.price}',
+                        text: '\u{20B9}${widget.product.price}',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,

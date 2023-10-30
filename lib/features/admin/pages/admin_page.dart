@@ -1,3 +1,4 @@
+import 'package:ecommerce_webapp/features/landing_page/landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,6 +24,14 @@ class _AdminPageState extends State<AdminPage> {
     AllProducts(),
     AnalyticsPage(),
     OrdersPageAdmin(),
+    Center(
+        child: Text(
+      'Go to bazaar',
+      style: TextStyle(
+        fontSize: 24,
+        color: Colors.black,
+      ),
+    )),
   ];
 
   Future<void> _dialogBuilder(BuildContext context) {
@@ -102,6 +111,12 @@ class _AdminPageState extends State<AdminPage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         onTap: (value) {
+          if (value == 3) {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const LandingPage()),
+                (route) => false);
+          }
           setState(() {
             _page = value;
           });
@@ -170,6 +185,24 @@ class _AdminPageState extends State<AdminPage> {
             ),
             label: '',
           ),
+          BottomNavigationBarItem(
+              icon: Container(
+                width: _bottomBarWidth,
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      width: _bottomBarIconWidth,
+                      color: _page == 3
+                          ? GlobalVariables.selectedNavBarColor
+                          : GlobalVariables.backgroundColor,
+                    ),
+                  ),
+                ),
+                child: const Icon(
+                  Icons.exit_to_app,
+                ),
+              ),
+              label: ''),
         ],
       ),
     );
