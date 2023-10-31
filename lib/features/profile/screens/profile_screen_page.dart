@@ -36,13 +36,13 @@ class _ProfileScreenPageState extends State<ProfileScreenPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Row(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(right: 15.0),
-                      child: Icon(
-                        Icons.notifications_outlined,
-                        color: Colors.black,
-                      ),
-                    ),
+                    // const Padding(
+                    //   padding: EdgeInsets.only(right: 15.0),
+                    //   child: Icon(
+                    //     Icons.notifications_outlined,
+                    //     color: Colors.black,
+                    //   ),
+                    // ),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(

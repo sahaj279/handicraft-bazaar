@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-const domain = "https://sahaj-amazon.onrender.com";
-// const domain = "http://localhost:4999";
+// const domain = "https://sahaj-amazon.onrender.com";
+const domain = "http://localhost:4999";
 
 class GlobalVariables {
   // COLORS
@@ -30,6 +30,10 @@ class GlobalVariables {
 
   // STATIC IMAGES
   static const List<Map<String, String>> categoryImages = [
+    {
+      'title': 'All Categories',
+      'image': 'assets/images/0.jpeg',
+    },
     {
       'title': 'Pottery',
       'image': 'assets/images/1.png',

@@ -6,6 +6,7 @@ class User {
   final String address;
   final String type;
   final String token;
+  final String phoneNumber;
   final List<dynamic> cart;
 
   User({
@@ -17,10 +18,12 @@ class User {
     required this.type,
     required this.token,
     required this.cart,
+    required this.phoneNumber,
   });
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
+      phoneNumber: map['phoneNumber'] ?? '',
       id: map['_id'] ?? '',
       name: map['name'] ?? "",
       email: map['emial'] ?? "",
@@ -42,20 +45,22 @@ class User {
       'type': type,
       'token': token,
       'address': address,
-      'cart': cart
+      'cart': cart,
+      'phoneNumber': phoneNumber,
     };
   }
 
-  User copyWith(
-    {String? id,
+  User copyWith({
+    String? id,
     String? name,
     String? email,
     String? password,
     String? address,
     String? type,
     String? token,
-    List<dynamic>? cart,}
-  ) {
+    String? phoneNumber,
+    List<dynamic>? cart,
+  }) {
     return User(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -65,6 +70,7 @@ class User {
       type: type ?? this.type,
       token: token ?? this.token,
       cart: cart ?? this.cart,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
     );
   }
 }

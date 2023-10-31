@@ -5,7 +5,7 @@ import 'package:ecommerce_webapp/features/address/services/address_services.dart
 import 'package:ecommerce_webapp/provider/user_provider.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
+// import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
@@ -32,54 +32,54 @@ class _AddressScreenState extends State<AddressScreen> {
   bool processingPayment = false;
 
   Map<String, dynamic>? paymentIntent;
-  Future<void> makePayment() async {
-    try {
-      paymentIntent = await createPaymentIntent();
-      // var gpay = const PaymentSheetGooglePay(
-      //   merchantCountryCode: "IN",
-      //   currencyCode: "INR",
-      //   testEnv: true,
-      // );
-      await Stripe.instance
-          .initPaymentSheet(
-              paymentSheetParameters: SetupPaymentSheetParameters(
-                  paymentIntentClientSecret: paymentIntent![
-                      'client_secret'], //Gotten from payment intent
-                  style: ThemeMode.light,
-                  merchantDisplayName: 'Handicraft Bazaar'))
-          .then((value) {});
-      // var res = await Stripe.instance.initPaymentSheet(
-      //     paymentSheetParameters: SetupPaymentSheetParameters(
-      //   paymentIntentClientSecret: paymentIntent!['client_secret'],
-      //   style: ThemeMode.dark,
-      //   merchantDisplayName: "Handicraft Bazaar",
-      //   // googlePay: gpay,
-      // ));
-      // print('#### res $res');
-      displayPaymentSheet();
-    } catch (e) {
-      print('#### 3 ${e.toString()}');
-      showSnackbar(context: context, content: e.toString());
-    }
-  }
+  // Future<void> makePayment() async {
+  //   try {
+  //     paymentIntent = await createPaymentIntent();
+  //     // var gpay = const PaymentSheetGooglePay(
+  //     //   merchantCountryCode: "IN",
+  //     //   currencyCode: "INR",
+  //     //   testEnv: true,
+  //     // );
+  //     await Stripe.instance
+  //         .initPaymentSheet(
+  //             paymentSheetParameters: SetupPaymentSheetParameters(
+  //                 paymentIntentClientSecret: paymentIntent![
+  //                     'client_secret'], //Gotten from payment intent
+  //                 style: ThemeMode.light,
+  //                 merchantDisplayName: 'Handicraft Bazaar'))
+  //         .then((value) {});
+  //     // var res = await Stripe.instance.initPaymentSheet(
+  //     //     paymentSheetParameters: SetupPaymentSheetParameters(
+  //     //   paymentIntentClientSecret: paymentIntent!['client_secret'],
+  //     //   style: ThemeMode.dark,
+  //     //   merchantDisplayName: "Handicraft Bazaar",
+  //     //   // googlePay: gpay,
+  //     // ));
+  //     // print('#### res $res');
+  //     displayPaymentSheet();
+  //   } catch (e) {
+  //     print('#### 3 ${e.toString()}');
+  //     showSnackbar(context: context, content: e.toString());
+  //   }
+  // }
 
-  void displayPaymentSheet() async {
-    try {
-      // await Stripe.instance.presentPaymentSheet();
-      await Stripe.instance.presentPaymentSheet().then((value) {
-        showSnackbar(
-            context: context, content: 'Payment Successful, placing order...');
-        onPaymentResult();
+  // void displayPaymentSheet() async {
+  //   try {
+  //     // await Stripe.instance.presentPaymentSheet();
+  //     await Stripe.instance.presentPaymentSheet().then((value) {
+  //       showSnackbar(
+  //           context: context, content: 'Payment Successful, placing order...');
+  //       onPaymentResult();
 
-        paymentIntent = null;
-      }).onError((error, stackTrace) {
-        throw Exception(error);
-      });
-    } catch (e) {
-      print('#### 2 ${e.toString()}');
-      showSnackbar(context: context, content: e.toString());
-    }
-  }
+  //       paymentIntent = null;
+  //     }).onError((error, stackTrace) {
+  //       throw Exception(error);
+  //     });
+  //   } catch (e) {
+  //     print('#### 2 ${e.toString()}');
+  //     showSnackbar(context: context, content: e.toString());
+  //   }
+  // }
 
   createPaymentIntent() async {
     try {
@@ -255,8 +255,8 @@ class _AddressScreenState extends State<AddressScreen> {
                     CommonButton(
                       onTap: () {
                         payPressed(address);
-                        makePayment();
-                        // onPaymentResult();
+                        // makePayment();
+                        onPaymentResult();
                       },
                       buttonText: 'PROCEED',
                       color: Colors.white,

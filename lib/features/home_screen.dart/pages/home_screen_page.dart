@@ -76,16 +76,16 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
               ),
             ),
           ),
-          actions: [
-            Container(
-              height: 42,
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: const Icon(
-                Icons.mic,
-                color: Colors.black,
-              ),
-            ),
-          ],
+          // actions: [
+          //   Container(
+          //     height: 42,
+          //     padding: const EdgeInsets.symmetric(horizontal: 15),
+          //     child: const Icon(
+          //       Icons.mic,
+          //       color: Colors.black,
+          //     ),
+          //   ),
+          // ],
         ),
       ),
       body: const SingleChildScrollView(

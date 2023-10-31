@@ -59,25 +59,26 @@ class _CategoryDealsState extends State<CategoryDeals> {
                     vertical: 10,
                   ),
                   alignment: Alignment.topLeft,
-                  child: Text('Keep shopping for ${widget.category}',
+                  child: Text(widget.category,
                       style: const TextStyle(fontSize: 20)),
                 ),
                 products!.isEmpty
-                    ?const Expanded(
-                      child:  Center(
-                          child: Text('No Products for this category',
+                    ? const Expanded(
+                        child: Center(
+                          child: Text('No Products found :(',
                               style: TextStyle(fontSize: 20)),
                         ),
-                    )
+                      )
                     : SizedBox(
-                        height: 183,
+                        // height: 183,
                         child: GridView.builder(
                             padding: const EdgeInsets.only(left: 10),
-                            scrollDirection: Axis.horizontal,
+                            scrollDirection: Axis.vertical,
                             itemCount: products!.length,
+                            shrinkWrap: true,
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 1,
+                              crossAxisCount: 2,
                               childAspectRatio: 1,
                               mainAxisSpacing: 10,
                             ),
@@ -96,21 +97,24 @@ class _CategoryDealsState extends State<CategoryDeals> {
                                       },
                                     ));
                                   },
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      SizedBox(
-                                        height: 140,
-                                        child: SingleProduct(
-                                            image: productData.images[0]),
-                                      ),
-                                      Text(
-                                        productData.name,
-                                        // style:const TextStyle(fontSize:14),
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 2,
-                                      ),
-                                    ],
+                                  child: SizedBox(
+                                    height: 183,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        SizedBox(
+                                          height: 140,
+                                          child: SingleProduct(
+                                              image: productData.images[0]),
+                                        ),
+                                        Text(
+                                          productData.name,
+                                          // style:const TextStyle(fontSize:14),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
