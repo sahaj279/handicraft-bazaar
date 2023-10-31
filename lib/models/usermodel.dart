@@ -26,7 +26,7 @@ class User {
       phoneNumber: map['phoneNumber'] ?? '',
       id: map['_id'] ?? '',
       name: map['name'] ?? "",
-      email: map['emial'] ?? "",
+      email: map['email'] ?? "",
       password: map['password'] ?? "",
       address: map['address'] ?? "",
       type: map['type'] ?? "",

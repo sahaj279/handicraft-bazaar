@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ecommerce_webapp/features/super_admin/views/super_admin_landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -95,6 +96,15 @@ class AuthServices {
         } else if (Provider.of<UserProvider>(context, listen: false)
                 .user
                 .type ==
+            "super admin") {
+          Navigator.pushReplacement(context, MaterialPageRoute(
+            builder: (context) {
+              return const SuperAdminLandingPage();
+            },
+          ));
+        } else if (Provider.of<UserProvider>(context, listen: false)
+                .user
+                .type ==
             "admin") {
           Navigator.pushReplacement(context, MaterialPageRoute(
             builder: (context) {
@@ -143,6 +153,11 @@ class AuthServices {
         if (userData['type'] == 'admin') {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const AdminPage()));
+        } else if (userData['type'] == 'super admin') {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const SuperAdminLandingPage()));
         } else {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const LandingPage()));

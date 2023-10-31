@@ -1,3 +1,4 @@
+import 'package:ecommerce_webapp/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ecommerce_webapp/constants/global_constants.dart';
@@ -6,6 +7,7 @@ import 'package:ecommerce_webapp/features/home_screen.dart/widgets/carousels.dar
 import 'package:ecommerce_webapp/features/home_screen.dart/widgets/deal_of_the_day.dart';
 import 'package:ecommerce_webapp/features/home_screen.dart/widgets/top_categories.dart';
 import 'package:ecommerce_webapp/features/search/screens/search_screen.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreenPage extends StatefulWidget {
   const HomeScreenPage({super.key});
@@ -25,6 +27,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
 
   @override
   Widget build(BuildContext context) {
+    print('#### ${Provider.of<UserProvider>(context).user.email}');
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(72),
