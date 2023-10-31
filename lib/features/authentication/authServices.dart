@@ -32,6 +32,7 @@ class AuthServices {
         type: '',
         token: '',
         cart: [],
+        phoneNumber: '',
       );
 
       http.Response res = await http.post(
