@@ -4,8 +4,6 @@ import 'dart:convert';
 import 'package:ecommerce_webapp/models/product_model.dart';
 
 class Order {
-  //userid ,_id,status, totalPrice,orderedAt,address, and products which is again a list of products
-
   final String orderId;
   final int status;
   final double totalPrice;
@@ -13,6 +11,9 @@ class Order {
   final int quantity;
   final String address;
   final int orderedAt;
+  final String phoneNumber;
+  final int paymentMode;
+  final String stripePaymentId;
 
   Order({
     required this.orderId,
@@ -22,6 +23,9 @@ class Order {
     required this.quantity,
     required this.address,
     required this.orderedAt,
+    required this.phoneNumber,
+    required this.stripePaymentId,
+    required this.paymentMode,
   });
 
   Map<String, dynamic> toMap() {
@@ -34,6 +38,9 @@ class Order {
       'quantity': quantity,
       'address': address,
       'orderedAt': orderedAt,
+      'paymentMode': paymentMode,
+      'stripePaymentId': stripePaymentId,
+      'phoneNumber': phoneNumber,
     };
   }
 
@@ -46,6 +53,9 @@ class Order {
       quantity: map['quantity'] as int,
       address: map['address'] as String,
       orderedAt: map['orderedAt'] as int,
+      paymentMode: map['paymentMode'] as int,
+      phoneNumber: map['phoneNumber'] as String,
+      stripePaymentId: map['stripePaymentId'] as String,
     );
   }
 

@@ -58,7 +58,7 @@ class ColumnRowWithChips extends StatelessWidget {
               },
             ),
             CustomChip(
-              text: 'Your Wish List',
+              text: 'Need Help?',
               onTap: () {},
             ),
           ],

@@ -19,10 +19,13 @@ class OrderDetailsScreen extends StatefulWidget {
 
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   int currentStep = 0;
-  onSearchTapped(String query) {
+  onSearchEntered(String query) {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return SearchScreenHomePage(searchQuery: query);
+        return SearchScreenHomePage(
+          searchQuery: query,
+          emptySearchQuery: query.trim() == '',
+        );
       },
     ));
   }
@@ -51,55 +54,53 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             children: [
               Expanded(
                 child: Container(
-                    height: 42,
-                    margin: const EdgeInsets.only(left: 15),
-                    child: Material(
-                      borderRadius: BorderRadius.circular(7),
-                      elevation: 1,
-                      child: TextFormField(
-                        onFieldSubmitted: onSearchTapped,
-                        decoration: InputDecoration(
-                          prefixIcon: InkWell(
-                            onTap: () {},
-                            child: const Padding(
-                              padding: EdgeInsets.only(left: 6),
-                              child: Icon(
-                                Icons.search,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding: const EdgeInsets.only(top: 10),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(7),
-                            borderSide: BorderSide.none,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(7),
-                            borderSide: const BorderSide(
-                              color: Colors.black38,
-                              width: 1,
-                            ),
-                          ),
-                          hintText: 'Search the bazaar',
-                          hintStyle: const TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500,
+                  height: 42,
+                  margin: const EdgeInsets.only(left: 15),
+                  child: Material(
+                    borderRadius: BorderRadius.circular(7),
+                    elevation: 1,
+                    child: TextFormField(
+                      onFieldSubmitted: onSearchEntered,
+                      decoration: InputDecoration(
+                        prefixIcon: const Padding(
+                          padding: EdgeInsets.only(left: 6),
+                          child: Icon(
+                            Icons.search,
+                            color: Colors.black,
                           ),
                         ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        contentPadding: const EdgeInsets.only(top: 10),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(7),
+                          borderSide: BorderSide.none,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(7),
+                          borderSide: const BorderSide(
+                            color: Colors.black38,
+                            width: 1,
+                          ),
+                        ),
+                        hintText: 'Search the bazaar',
+                        hintStyle: const TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    )),
-              ),
-              Container(
-                height: 42,
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: const Icon(
-                  Icons.mic,
-                  color: Colors.black,
+                    ),
+                  ),
                 ),
               ),
+              // Container(
+              //   height: 42,
+              //   padding: const EdgeInsets.symmetric(horizontal: 15),
+              //   child: const Icon(
+              //     Icons.mic,
+              //     color: Colors.black,
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -146,7 +147,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       Text(
                         DateFormat().format(
                           DateTime.fromMillisecondsSinceEpoch(
-                              widget.order.orderedAt),
+                            widget.order.orderedAt,
+                          ),
                         ),
                       ),
                       Text(widget.order.orderId),
@@ -172,52 +174,41 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 ),
               ),
               Container(
-                width: double.infinity,
+                // width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
                   border: Border.all(width: 1, color: Colors.black12),
                   borderRadius: BorderRadius.circular(5),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // for (int i = 0; i < widget.order.product.length; i++)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.network(
-                              widget.order.product.images[0],
-                              height: 120,
-                              fit: BoxFit.contain,
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.network(
+                        widget.order.product.images[0],
+                        height: 120,
+                        width: 120,
+                        fit: BoxFit.contain,
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            widget.order.product.name,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
                             ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  widget.order.product.name,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                Text(
-                                  'Qty: ${widget.order.quantity}',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ]),
-                    ),
-                  ],
-                ),
+                          ),
+                          Text(
+                            'Qty: ${widget.order.quantity}',
+                          ),
+                        ],
+                      ),
+                    ]),
               ),
               const SizedBox(
                 height: 10,
@@ -234,7 +225,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   physics: const NeverScrollableScrollPhysics(),
                   currentStep: currentStep,
                   controlsBuilder: ((context, details) {
-                    if (user.type == 'admin') {
+                    if (user.type == 'admin' &&
+                        user.id == widget.order.product.userid!) {
                       return CommonButton(
                         onTap: () {
                           if (currentStep < 3) {
@@ -246,7 +238,6 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                     () {
                                       currentStep += 1;
                                       print(currentStep);
-                                      // if (currentStep == 4) currentStep--;
                                     },
                                   );
                                 });

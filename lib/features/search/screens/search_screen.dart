@@ -35,12 +35,12 @@ class _SearchScreenHomePageState extends State<SearchScreenHomePage> {
     setState(() {});
   }
 
-  onSearchTapped(String query) {
-    Navigator.push(context, MaterialPageRoute(
-      builder: (context) {
-        return SearchScreenHomePage(searchQuery: query);
-      },
-    ));
+  onSearchEntered(String query) async {
+    if (query.trim() != '') {
+      products = await SearchServices()
+          .getSearchedProducts(context: context, searchQueryStirng: query);
+      setState(() {});
+    }
   }
 
   @override
@@ -70,7 +70,7 @@ class _SearchScreenHomePageState extends State<SearchScreenHomePage> {
                                 widget.emptySearchQuery == true
                             ? true
                             : false,
-                        onFieldSubmitted: onSearchTapped,
+                        onFieldSubmitted: onSearchEntered,
                         decoration: InputDecoration(
                           prefixIcon: InkWell(
                             onTap: () {},

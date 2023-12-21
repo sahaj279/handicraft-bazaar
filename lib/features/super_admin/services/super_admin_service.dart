@@ -1,7 +1,4 @@
 import 'dart:convert';
-
-import 'package:cloudinary_public/cloudinary_public.dart';
-import 'package:ecommerce_webapp/common/util/error_handle_inAPIs.dart';
 import 'package:ecommerce_webapp/common/util/snackbar.dart';
 import 'package:ecommerce_webapp/constants/global_constants.dart';
 import 'package:ecommerce_webapp/features/admin/model/Sale_Model.dart';
@@ -15,41 +12,41 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class SuperAdminService {
-  Future<void> getAllSellers({
-    required BuildContext context,
-    required String name,
-    required String desc,
-    required double price,
-    required int quantity,
-    required List<Uint8List> images,
-    required String category,
-  }) async {
-    try {
-      String token =
-          Provider.of<UserProvider>(context, listen: false).user.token;
+  // Future<void> getAllSellers({
+  //   required BuildContext context,
+  //   required String name,
+  //   required String desc,
+  //   required double price,
+  //   required int quantity,
+  //   required List<Uint8List> images,
+  //   required String category,
+  // }) async {
+  //   try {
+  //     String token =
+  //         Provider.of<UserProvider>(context, listen: false).user.token;
 
-      Uri url = Uri.parse('$domain/admin/addProduct');
-      http.Response res = await http.post(
-        url,
-        headers: {
-          'x-auth-token': token,
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      );
+  //     Uri url = Uri.parse('$domain/admin/addProduct');
+  //     http.Response res = await http.post(
+  //       url,
+  //       headers: {
+  //         'x-auth-token': token,
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //       },
+  //     );
 
-      if (res.statusCode == 200) {
-        showSnackbar(context: context, content: 'Prodct added successfully!');
-        Provider.of<ProductProvider>(context, listen: false).addProduct(
-          Product.fromMap(jsonDecode(res.body)),
-        );
-        Navigator.pop(context);
-      } else {
-        showSnackbar(context: context, content: res.body);
-      }
-    } catch (e) {
-      showSnackbar(context: context, content: e.toString());
-    }
-  }
+  //     if (res.statusCode == 200) {
+  //       showSnackbar(context: context, content: 'Prodct added successfully!');
+  //       Provider.of<ProductProvider>(context, listen: false).addProduct(
+  //         Product.fromMap(jsonDecode(res.body)),
+  //       );
+  //       Navigator.pop(context);
+  //     } else {
+  //       showSnackbar(context: context, content: res.body);
+  //     }
+  //   } catch (e) {
+  //     showSnackbar(context: context, content: e.toString());
+  //   }
+  // }
 
 //UPDATE THE TRACKING STATUS OF ORDERS
   void updateStatus({
@@ -82,13 +79,13 @@ class SuperAdminService {
   }
 
   // GETTING ALL PRODUCTS OF A PARTICULAR SELLER
-  Future<List<Product>> getAllProducts({required BuildContext context}) async {
+  Future<List<Product>> getAllSellers({required BuildContext context}) async {
     String token = Provider.of<UserProvider>(context, listen: false).user.token;
     List<Product> products = [];
     try {
       //we want a list of all products in the db a admin has added
       http.Response res = await http.get(
-        Uri.parse('$domain/admin/all-products'),
+        Uri.parse('$domain/superadmin/all-products'),
         headers: {'x-auth-token': token},
       );
       if (res.statusCode == 200) {
@@ -149,16 +146,10 @@ class SuperAdminService {
         Uri.parse('$domain/admin/delete-a-product'),
         headers: {'x-auth-token': token, 'pid': productid},
       );
-
-      errorHandle(
-          context: context,
-          statusCode: res.statusCode,
-          onSuccess: () {
-            showSnackbar(
-                context: context, content: '$pname removed successfully');
-            onSuccess();
-          },
-          snackbarcontent: res.body);
+      if (res.statusCode == 200) {
+        showSnackbar(context: context, content: '$pname removed successfully');
+        onSuccess();
+      }
     } catch (e) {
       showSnackbar(context: context, content: e.toString());
     }

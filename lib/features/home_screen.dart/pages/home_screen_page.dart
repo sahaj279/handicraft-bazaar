@@ -17,10 +17,13 @@ class HomeScreenPage extends StatefulWidget {
 }
 
 class _HomeScreenPageState extends State<HomeScreenPage> {
-  onSearchTapped(String query) {
+  onSearchEntered(String query) {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return SearchScreenHomePage(searchQuery: query);
+        return SearchScreenHomePage(
+          searchQuery: query,
+          emptySearchQuery: query.trim() == '',
+        );
       },
     ));
   }
@@ -48,16 +51,13 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
               borderRadius: BorderRadius.circular(7),
               elevation: 1,
               child: TextFormField(
-                onFieldSubmitted: onSearchTapped,
+                onFieldSubmitted: onSearchEntered,
                 decoration: InputDecoration(
-                  prefixIcon: InkWell(
-                    onTap: () {},
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 6),
-                      child: Icon(
-                        Icons.search,
-                        color: Colors.black,
-                      ),
+                  prefixIcon: const Padding(
+                    padding: EdgeInsets.only(left: 6),
+                    child: Icon(
+                      Icons.search,
+                      color: Colors.black,
                     ),
                   ),
                   filled: true,
@@ -69,12 +69,16 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(7),
-                    borderSide:
-                        const BorderSide(color: Colors.black38, width: 1),
+                    borderSide: const BorderSide(
+                      color: Colors.black38,
+                      width: 1,
+                    ),
                   ),
                   hintText: 'Search the bazaar',
                   hintStyle: const TextStyle(
-                      fontSize: 17, fontWeight: FontWeight.w500),
+                    fontSize: 17,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),
@@ -95,21 +99,14 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
         child: Column(
           children: [
             AddressBox(),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             CarouselsView(),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             TopCategories(),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             DealOfTheDay(),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
+            //TODO: Deal of the day
           ],
         ),
       ),

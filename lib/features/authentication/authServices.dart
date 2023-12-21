@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:ecommerce_webapp/features/super_admin/views/super_admin_landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -10,8 +9,9 @@ import 'package:ecommerce_webapp/common/util/snackbar.dart';
 import 'package:ecommerce_webapp/constants/global_constants.dart';
 import 'package:ecommerce_webapp/features/admin/pages/admin_page.dart';
 import 'package:ecommerce_webapp/features/authentication/auth_page.dart';
-import 'package:ecommerce_webapp/models/usermodel.dart';
 import 'package:ecommerce_webapp/features/landing_page/landing_page.dart';
+import 'package:ecommerce_webapp/features/super_admin/views/super_admin_landing_page.dart';
+import 'package:ecommerce_webapp/models/usermodel.dart';
 import 'package:ecommerce_webapp/provider/user_provider.dart';
 
 class AuthServices {
@@ -155,9 +155,10 @@ class AuthServices {
               MaterialPageRoute(builder: (context) => const AdminPage()));
         } else if (userData['type'] == 'super admin') {
           Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const SuperAdminLandingPage()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => const SuperAdminLandingPage()),
+          );
         } else {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const LandingPage()));
@@ -168,6 +169,8 @@ class AuthServices {
       }
     } catch (e) {
       showSnackbar(context: context, content: e.toString());
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const AuthPage()));
     }
   }
 }

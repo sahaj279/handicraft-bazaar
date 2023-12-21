@@ -1,7 +1,11 @@
 import 'dart:convert';
 
 import 'package:cloudinary_public/cloudinary_public.dart';
-import 'package:ecommerce_webapp/common/util/error_handle_inAPIs.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+
 import 'package:ecommerce_webapp/common/util/snackbar.dart';
 import 'package:ecommerce_webapp/constants/global_constants.dart';
 import 'package:ecommerce_webapp/features/admin/model/Sale_Model.dart';
@@ -9,10 +13,6 @@ import 'package:ecommerce_webapp/models/order_model.dart';
 import 'package:ecommerce_webapp/models/product_model.dart';
 import 'package:ecommerce_webapp/provider/product_provider.dart';
 import 'package:ecommerce_webapp/provider/user_provider.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 
 class AdminServices {
   //adding a product to the db
@@ -155,27 +155,23 @@ class AdminServices {
   }
 
   //DELETING A PARTICULAR PRODUCT BY ITS ID IN HEADER
-  deleteAProduct(
-      {required BuildContext context,
-      required String productid,
-      required String pname,
-      required VoidCallback onSuccess}) async {
+  Future<void> deleteAProduct({
+    required BuildContext context,
+    required String productid,
+    required String pname,
+    required VoidCallback onSuccess,
+  }) async {
     String token = Provider.of<UserProvider>(context, listen: false).user.token;
     try {
       http.Response res = await http.delete(
         Uri.parse('$domain/admin/delete-a-product'),
         headers: {'x-auth-token': token, 'pid': productid},
       );
-
-      errorHandle(
-          context: context,
-          statusCode: res.statusCode,
-          onSuccess: () {
-            showSnackbar(
-                context: context, content: '$pname removed successfully');
-            onSuccess();
-          },
-          snackbarcontent: res.body);
+      print(res.body);
+      if (res.statusCode == 200) {
+        showSnackbar(context: context, content: '$pname removed successfully');
+        onSuccess();
+      }
     } catch (e) {
       showSnackbar(context: context, content: e.toString());
     }

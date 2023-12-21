@@ -14,4 +14,9 @@ class ProductProvider with ChangeNotifier {
     this.products = products;
     notifyListeners();
   }
+
+  void deleteProduct(int index) {
+    products.removeAt(index);
+    notifyListeners();
+  }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-
 import 'package:ecommerce_webapp/common/widgets/circular_loader.dart';
 import 'package:ecommerce_webapp/features/authentication/authServices.dart';
 
