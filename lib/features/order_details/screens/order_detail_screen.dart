@@ -1,5 +1,6 @@
 import 'package:ecommerce_webapp/common/widgets/common_button.dart';
 import 'package:ecommerce_webapp/features/admin/services/admin_services.dart';
+import 'package:ecommerce_webapp/features/order_details/services/order_detail_services.dart';
 import 'package:ecommerce_webapp/models/order_model.dart';
 import 'package:ecommerce_webapp/provider/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,11 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
         );
       },
     ));
+  }
+
+  cancelOrder(int status, int paymentMode, orderId) async {
+    await OrderDetailServices()
+        .cancelOrder(context, status, paymentMode, orderId);
   }
 
   @override
@@ -135,6 +141,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       Text('Order ID:'),
                       Text('Order Total:'),
                       Text('Address:'),
+                      Text('Phone Number:'),
                     ],
                   ),
                   const SizedBox(
@@ -156,6 +163,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       Text(
                         widget.order.address,
                         overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      Text(
+                        widget.order.phoneNumber,
                         maxLines: 1,
                       ),
                     ],
@@ -225,7 +236,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   physics: const NeverScrollableScrollPhysics(),
                   currentStep: currentStep,
                   controlsBuilder: ((context, details) {
-                    if (user.type == 'admin' &&
+                    if (user.type != 'user' &&
                         user.id == widget.order.product.userid!) {
                       return CommonButton(
                         onTap: () {
@@ -290,7 +301,20 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                           ? StepState.complete
                           : StepState.indexed,
                     ),
-                  ])
+                  ]),
+              const SizedBox(
+                height: 10,
+              ),
+              CommonButton(
+                onTap: () async {
+                  await cancelOrder(
+                    currentStep,
+                    widget.order.paymentMode,
+                    widget.order.orderId,
+                  );
+                },
+                buttonText: currentStep < 3 ? 'Cancel Order' : 'Return Order',
+              ),
             ],
           ),
         ),

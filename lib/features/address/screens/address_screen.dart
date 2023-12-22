@@ -5,7 +5,7 @@ import 'package:ecommerce_webapp/features/address/services/address_services.dart
 import 'package:ecommerce_webapp/provider/user_provider.dart';
 
 import 'package:flutter/material.dart';
-// import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
@@ -27,59 +27,61 @@ class _AddressScreenState extends State<AddressScreen> {
   final areaController = TextEditingController();
   final pincodeController = TextEditingController();
   final towncityController = TextEditingController();
+  final phoneNumberController = TextEditingController();
+  String paymentMode = 'cod';
   String addressToBeUsed = "";
   final addressServices = AddressServices();
   bool processingPayment = false;
 
   Map<String, dynamic>? paymentIntent;
-  // Future<void> makePayment() async {
-  //   try {
-  //     paymentIntent = await createPaymentIntent();
-  //     // var gpay = const PaymentSheetGooglePay(
-  //     //   merchantCountryCode: "IN",
-  //     //   currencyCode: "INR",
-  //     //   testEnv: true,
-  //     // );
-  //     await Stripe.instance
-  //         .initPaymentSheet(
-  //             paymentSheetParameters: SetupPaymentSheetParameters(
-  //                 paymentIntentClientSecret: paymentIntent![
-  //                     'client_secret'], //Gotten from payment intent
-  //                 style: ThemeMode.light,
-  //                 merchantDisplayName: 'Handicraft Bazaar'))
-  //         .then((value) {});
-  //     // var res = await Stripe.instance.initPaymentSheet(
-  //     //     paymentSheetParameters: SetupPaymentSheetParameters(
-  //     //   paymentIntentClientSecret: paymentIntent!['client_secret'],
-  //     //   style: ThemeMode.dark,
-  //     //   merchantDisplayName: "Handicraft Bazaar",
-  //     //   // googlePay: gpay,
-  //     // ));
-  //     // print('#### res $res');
-  //     displayPaymentSheet();
-  //   } catch (e) {
-  //     print('#### 3 ${e.toString()}');
-  //     showSnackbar(context: context, content: e.toString());
-  //   }
-  // }
+  Future<void> makePayment() async {
+    try {
+      paymentIntent = await createPaymentIntent();
+      // var gpay = const PaymentSheetGooglePay(
+      //   merchantCountryCode: "IN",
+      //   currencyCode: "INR",
+      //   testEnv: true,
+      // );
+      await Stripe.instance
+          .initPaymentSheet(
+              paymentSheetParameters: SetupPaymentSheetParameters(
+                  paymentIntentClientSecret: paymentIntent![
+                      'client_secret'], //Gotten from payment intent
+                  style: ThemeMode.light,
+                  merchantDisplayName: 'Handicraft Bazaar'))
+          .then((value) {});
+      // var res = await Stripe.instance.initPaymentSheet(
+      //     paymentSheetParameters: SetupPaymentSheetParameters(
+      //   paymentIntentClientSecret: paymentIntent!['client_secret'],
+      //   style: ThemeMode.dark,
+      //   merchantDisplayName: "Handicraft Bazaar",
+      //   // googlePay: gpay,
+      // ));
+      // print('#### res $res');
+      displayPaymentSheet();
+    } catch (e) {
+      print('#### 3 ${e.toString()}');
+      showSnackbar(context: context, content: e.toString());
+    }
+  }
 
-  // void displayPaymentSheet() async {
-  //   try {
-  //     // await Stripe.instance.presentPaymentSheet();
-  //     await Stripe.instance.presentPaymentSheet().then((value) {
-  //       showSnackbar(
-  //           context: context, content: 'Payment Successful, placing order...');
-  //       onPaymentResult();
+  void displayPaymentSheet() async {
+    try {
+      // await Stripe.instance.presentPaymentSheet();
+      await Stripe.instance.presentPaymentSheet().then((value) {
+        showSnackbar(
+            context: context, content: 'Payment Successful, placing order...');
+        onPaymentResult();
 
-  //       paymentIntent = null;
-  //     }).onError((error, stackTrace) {
-  //       throw Exception(error);
-  //     });
-  //   } catch (e) {
-  //     print('#### 2 ${e.toString()}');
-  //     showSnackbar(context: context, content: e.toString());
-  //   }
-  // }
+        paymentIntent = null;
+      }).onError((error, stackTrace) {
+        throw Exception(error);
+      });
+    } catch (e) {
+      print('#### 2 ${e.toString()}');
+      showSnackbar(context: context, content: e.toString());
+    }
+  }
 
   createPaymentIntent() async {
     try {
@@ -121,7 +123,7 @@ class _AddressScreenState extends State<AddressScreen> {
   onPaymentResult() async {
     processingPayment = true;
     setState(() {});
-    //so if the payment was suxxessful, we want to store the address in the provider if there was no address earlier
+    //so if the payment was successful, we want to store the address in the provider if there was no address earlier
     print('#1');
     if (Provider.of<UserProvider>(context, listen: false)
             .user
@@ -130,14 +132,17 @@ class _AddressScreenState extends State<AddressScreen> {
         Provider.of<UserProvider>(context, listen: false).user.address !=
             addressToBeUsed) {
       print('#2');
-      await addressServices.saveUserAddress(context, addressToBeUsed);
+      await addressServices.saveUserAddress(
+          context, addressToBeUsed, phoneNumberController.text);
     }
     print('#6');
 
     await addressServices.placeOrder(
-        context: context,
-        address: addressToBeUsed,
-        totalPrice: widget.totalAmount);
+      context: context,
+      address: addressToBeUsed,
+      totalPrice: widget.totalAmount,
+      paymentMode: paymentMode == 'cod' ? 0 : 1,
+    );
     processingPayment = false;
     setState(() {});
   }
@@ -195,15 +200,18 @@ class _AddressScreenState extends State<AddressScreen> {
                                 padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                      color: Colors.black26, width: 1),
+                                    color: Colors.black26,
+                                    width: 1,
+                                  ),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 child: Text(
                                   address,
                                   maxLines: 1,
                                   style: const TextStyle(
-                                      fontSize: 16,
-                                      overflow: TextOverflow.ellipsis),
+                                    fontSize: 16,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                               ),
                               const Padding(
@@ -249,13 +257,43 @@ class _AddressScreenState extends State<AddressScreen> {
                           const SizedBox(
                             height: 10,
                           ),
+                          CommonTextField(
+                            hintText: 'Phone Number',
+                            c: phoneNumberController,
+                            keyboardType: TextInputType.phone,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          RadioListTile(
+                            title: const Text("Cash On Delivery"),
+                            value: "cod",
+                            groupValue: paymentMode,
+                            onChanged: (value) {
+                              setState(() {
+                                paymentMode = value.toString();
+                              });
+                            },
+                          ),
+                          RadioListTile(
+                            title: const Text("Stripe"),
+                            value: "stripe",
+                            groupValue: paymentMode,
+                            onChanged: (value) {
+                              setState(() {
+                                paymentMode = value.toString();
+                              });
+                            },
+                          ),
                         ],
                       ),
                     ),
                     CommonButton(
                       onTap: () {
                         payPressed(address);
-                        // makePayment();
+                        if (paymentMode == 'stripe') {
+                          makePayment();
+                        }
                         onPaymentResult();
                       },
                       buttonText: 'PROCEED',
