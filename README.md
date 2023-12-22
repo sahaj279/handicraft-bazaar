@@ -1,6 +1,6 @@
 # Handicraft_bazaar
 
-A crossplatform flutter app that provides an exclusive e-commerce platform for artisans to sell their products and allow buyers and sellers to meet at one platform for business.
+A cross-platform flutter app that provides an exclusive e-commerce platform for artisans to sell their products and allow buyers and sellers to meet at one platform for business.
 
 > To promote the Indian handicraft industry globally
 
@@ -27,7 +27,7 @@ A crossplatform flutter app that provides an exclusive e-commerce platform for a
 
 - **Frontend** Flutter ,Provider
 - **Backend** NodeJs, ExpressJs
-- **Database** MongoDb
+- **Database** MongoDB
 
 ## More features that can be implemented
 
