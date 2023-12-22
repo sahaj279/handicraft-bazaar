@@ -65,7 +65,7 @@ class AddressServices {
         },
       );
       print('#8');
-      // print(res.body);
+      print(res.body);
       if (res.statusCode == 400) {
         showSnackbar(
             context: context, content: jsonDecode(res.body)['message']);
