@@ -12,17 +12,19 @@ class OrderDetailServices {
       BuildContext context, int status, int paymentMode, String orderId) async {
     var userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
+      print('sfsdfdf121212');
       http.Response res = await http.post(
         Uri.parse(
           '$domain/api/cancel-order',
         ),
         body: {
           'orderId': orderId,
-          'paymentMode': paymentMode,
-          'status': status,
+          'paymentMode': paymentMode.toString(),
+          'status': status.toString(),
         },
         headers: {'x-auth-token': userProvider.user.token},
       );
+      print(res.body);
       if (res.statusCode == 200) {
         print('#4');
         print(jsonDecode(res.body));

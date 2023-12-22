@@ -126,13 +126,15 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                 ),
               ),
               Container(
-                width: double.infinity,
+                // width: 300,
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   border: Border.all(width: 1, color: Colors.black12),
                   borderRadius: BorderRadius.circular(5),
                 ),
-                child: Row(children: [
+                child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
                   const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -149,7 +151,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
+                    // mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         DateFormat().format(
@@ -157,8 +159,11 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             widget.order.orderedAt,
                           ),
                         ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                       ),
-                      Text(widget.order.orderId),
+                      Text(widget.order.orderId, overflow: TextOverflow.ellipsis,
+                        maxLines: 1,),
                       Text('\u{20B9}${widget.order.totalPrice}'),
                       Text(
                         widget.order.address,
