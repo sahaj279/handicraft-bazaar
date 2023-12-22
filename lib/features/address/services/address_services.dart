@@ -10,7 +10,8 @@ import 'package:provider/provider.dart';
 import '../../../models/usermodel.dart';
 
 class AddressServices {
-  Future<void> saveUserAddress(BuildContext context, String address) async {
+  Future<void> saveUserAddress(
+      BuildContext context, String address, String phoneNumber) async {
     print('#3');
     var userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
@@ -20,6 +21,7 @@ class AddressServices {
         ),
         body: {
           'address': address,
+          'phoneNumber': phoneNumber,
         },
         headers: {'x-auth-token': userProvider.user.token},
       );
@@ -38,10 +40,12 @@ class AddressServices {
   }
 
   //Placing an order
-  Future<void> placeOrder(
-      {required BuildContext context,
-      required String address,
-      required double totalPrice}) async {
+  Future<void> placeOrder({
+    required BuildContext context,
+    required String address,
+    required double totalPrice,
+    required int paymentMode,
+  }) async {
     var userProvider = Provider.of<UserProvider>(context, listen: false);
     print('#7');
     try {
@@ -53,6 +57,7 @@ class AddressServices {
           'cart': userProvider.user.cart,
           'totalPrice': totalPrice,
           'address': address,
+          'paymentMode': paymentMode,
         }),
         headers: {
           "Content-Type": "application/json",

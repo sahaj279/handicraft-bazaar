@@ -5,6 +5,7 @@ import 'package:ecommerce_webapp/models/product_model.dart';
 
 class Order {
   final String orderId;
+  final String sellerId;
   final int status;
   final double totalPrice;
   final Product product;
@@ -26,6 +27,7 @@ class Order {
     required this.phoneNumber,
     required this.stripePaymentId,
     required this.paymentMode,
+    required this.sellerId,
   });
 
   Map<String, dynamic> toMap() {
@@ -41,6 +43,7 @@ class Order {
       'paymentMode': paymentMode,
       'stripePaymentId': stripePaymentId,
       'phoneNumber': phoneNumber,
+      'sellerId': sellerId,
     };
   }
 
@@ -56,6 +59,7 @@ class Order {
       paymentMode: map['paymentMode'] as int,
       phoneNumber: map['phoneNumber'] as String,
       stripePaymentId: map['stripePaymentId'] as String,
+      sellerId: map['sellerId'] as String,
     );
   }
 
